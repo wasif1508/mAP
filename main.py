@@ -6,6 +6,7 @@ import operator
 import sys
 import argparse
 import math
+from tqdm import tqdm
 
 import numpy as np
 
@@ -503,7 +504,7 @@ lamr_dictionary = {}
 with open(output_files_path + "/output.txt", 'w') as output_file:
     output_file.write("# AP and precision/recall per class\n")
     count_true_positives = {}
-    for class_index, class_name in enumerate(gt_classes):
+    for class_index, class_name in enumerate(tqdm(gt_classes)):
         count_true_positives[class_name] = 0
         """
          Load detection-results of that class
@@ -517,7 +518,7 @@ with open(output_files_path + "/output.txt", 'w') as output_file:
         nd = len(dr_data)
         tp = [0] * nd # creates an array of zeros of size nd
         fp = [0] * nd
-        for idx, detection in enumerate(dr_data):
+        for idx, detection in enumerate(tqdm(dr_data)):
             file_id = detection["file_id"]
             if show_animation:
                 # find ground truth image
